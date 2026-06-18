@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — CI/CD pipeline (паттерн two-env: dev auto / prod manual).
+# Переименуй в deploy.yml и заполни под стек, когда он определится.
+# Заглушки <...> заменить. Принцип: test → build → deploy-dev (auto на push main).
+# Prod деплоится ВРУЧНУЮ оператором по docs/operations/runbook-prod-deploy.md.
+# ─────────────────────────────────────────────────────────────────────────────
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # - <setup стека: setup-python / setup-node / setup-go ...>
+      # - run: <install deps>
+      # - run: <линтер>            # blocking
+      # - run: <type-check>        # blocking
+      # - run: <тесты + coverage gate>   # gate должен совпадать с локальным
+
+  build-and-deploy-dev:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # - <build образа/артефакта>
+      # - <push в registry>
+      # - <auto-deploy на dev>
+      # - run: curl -sf https://dev.<host>/health   # post-deploy health
+
+  # prod — НЕ в CI. Ручной деплой: docs/operations/runbook-prod-deploy.md

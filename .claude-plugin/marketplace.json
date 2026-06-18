@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "plugins": [
+    {
+      "name": "agent-harness",
+      "displayName": "Agent Harness",
+      "description": "База знаний (wiki/ + docs/) + обвязка full-cycle dev-агента: статистика в markdown, чек-лист качества, 6-этапный жизненный цикл. /bootstrap разворачивает в новом проекте.",
+      "author": "Alexander Naumenko",
+      "source": {
+        "type": "local",
+        "path": "./plugins/agent-harness"
+      }
+    }
+  ]
+}

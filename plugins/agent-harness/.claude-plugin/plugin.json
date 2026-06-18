@@ -1,0 +1,15 @@
+{
+  "name": "agent-harness",
+  "description": "База знаний + обвязка для full-cycle dev-агента: wiki/ (структура) + docs/ (процесс), статистика в markdown, чек-лист качества, 6-этапный жизненный цикл. Команда /bootstrap разворачивает всё в новом проекте.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Alexander Naumenko",
+    "email": "alexnaumenko@gmail.com"
+  },
+  "homepage": "https://github.com/alexnaumenko/agent-harness",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexnaumenko/agent-harness.git"
+  },
+  "license": "MIT"
+}
