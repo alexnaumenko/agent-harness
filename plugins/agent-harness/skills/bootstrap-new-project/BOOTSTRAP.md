@@ -54,6 +54,13 @@ find . -name "*.md" -not -path './.git/*' -type f \
 ## Шаг 7. Завести первый session-log за сегодня
 Создай `docs/sessions/$(date +%Y-%m)/$(date +%Y-%m-%d).md` по шаблону `docs/sessions/TEMPLATE.md`, цель: «Проект развёрнут через /bootstrap-new-project». Удали `{{...}}` из шаблона.
 
+## Шаг 7b. Провенанс и память
+1. Заполни `docs/provenance.md` (скопирован из шаблонов) — плейсхолдеры уже заменены в шагах 4–5.
+2. Заведи запись в память проекта Claude (вне репо): добавь строку в
+   `~/.claude/projects/<кодированный-путь-проекта>/memory/MEMORY.md` и одноимённый файл-факт, например:
+   `- [Bootstrapped via agent-harness](provenance.md) — база знаний wiki/+docs/ + обвязка развёрнуты через /bootstrap.`
+   (Кодированный путь — это абсолютный путь проекта с заменой `/` на `-`. Если каталога памяти нет — создай.)
+
 ## Шаг 8. Сгенерировать сводку статистики
 ```bash
 python3 scripts/analytics/build_dashboard.py
