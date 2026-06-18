@@ -16,8 +16,6 @@
 - **`.claude/`** — SessionStart hook (подгружает шапку wiki при старте сессии).
 - **`.github/`** — PR-шаблон + CI-шаблон (dev auto / prod manual).
 
-Методология: insight-bot-mvp + статья [vc.ru/ai/2869178](https://vc.ru/ai/2869178-sozdanie-samoobnovlyayushcheysya-bazy-znaniy), с сознательными отклонениями (без авто-генерации через хуки, без QMD, аналитика в markdown, сводку считает скрипт а не LLM).
-
 ## Установка
 
 ```text
