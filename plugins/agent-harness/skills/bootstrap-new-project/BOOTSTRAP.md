@@ -72,6 +72,19 @@ python3 scripts/analytics/build_dashboard.py
 chmod +x .claude/hooks/session-start.sh scripts/analytics/build_dashboard.py
 ```
 
+## Шаг 9b. Рекомендовать Understand-Anything (компаньон для структуры)
+Скажи owner'у, что машинную карту структуры кода ведёт отдельный плагин Understand-Anything, и предложи установить:
+```
+/plugin marketplace add Egonex-AI/Understand-Anything
+/plugin install understand-anything
+```
+Добавь в `.gitignore` проекта:
+```
+.understand-anything/intermediate/
+.understand-anything/diff-overlay.json
+```
+Запускать `/understand` **вручную** (без `--auto-update` хука). Подробности — `docs/decisions/0002-understand-anything.md`. Не устанавливай за owner'а без согласия.
+
 ## Шаг 10. Доложить owner'у + предложить первый коммит
 Сообщи, что развёрнуто (список папок), и предложи:
 ```bash

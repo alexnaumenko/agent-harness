@@ -27,22 +27,26 @@ This file provides guidance to Claude Code when working in this repository.
 {{COMMANDS}}
 
 ## Architecture
-_Owner заполнит. Структурный snapshot кода ведётся в `wiki/` (см. ниже)._
+_Owner заполнит общую картину. Машинная карта структуры кода — в Understand-Anything (см. ниже)._
 
-## Structural knowledge — wiki/
-**Always check `wiki/` before answering structural questions** (схема БД, маршруты,
-архитектура компонентов). Если ответа нет в wiki — **сначала обнови `wiki/`, потом отвечай**.
-Карта — `wiki/README.md`. Процессное знание (сессии, решения, инциденты) — в `docs/`
-(`docs/README.md`). Wiki **не** source of truth (это код + миграции + ADR); обновляй wiki
-**в том же PR**, что меняет код. Без авто-генерации через хуки и без QMD (до ~50 файлов).
+## Structural knowledge — три слоя
+**Структурные вопросы (схема БД, маршруты, зависимости, что-на-что-влияет)** — сначала
+смотри **Understand-Anything**: `/understand-chat "..."` или дашборд `/understand-dashboard`
+(граф из кода, регенерируется командой `/understand`). Это машинная карта структуры.
+
+- **Understand-Anything** — авто-карта структуры кода (граф файлов/функций/зависимостей). Регенерируем по требованию, **без `--auto-update` хука** (запускаем `/understand` осознанно на гейтах, как `/dashboard`). Граф = производное представление, не source of truth.
+- **`wiki/`** — только структурные заметки, которые UA **не выводит** из кода: бизнес-инварианты, договорённости, «почему именно так». Обновляй в том же PR, что меняет код.
+- **`docs/`** — процесс (сессии, решения/ADR, инциденты, статистика). См. `docs/README.md`.
+
+Source of truth = код + миграции + ADR. Установка UA — см. `docs/decisions/0002-understand-anything.md`.
 
 ## Жизненный цикл и статистика (обвязка)
 Агент ведёт задачу через 6 этапов; на выходе с каждого — проверка-условие (тривиальное пропускается). Подробности и обоснование — `docs/decisions/0001-adopt-harness.md`.
 
 1. **Требования** — записан список «что должно получиться» (acceptance criteria, риски, не-цели).
 2. **Дизайн** — решение записано (ADR в `docs/decisions/`) и прошло multi-agent review.
-3. **Код** — код готов и `wiki/` обновлён в этом же изменении.
-4. **Тесты (VERIFY)** — тесты зелёные, покрытие ≥ порог, проверяющий выдал вердикт по `docs/reviews/review-format.md`, сверившись с `CODE-REVIEW.md`.
+3. **Код** — код готов; `wiki/`-заметки и (по необходимости) граф UA (`/understand`) обновлены.
+4. **Тесты (VERIFY)** — тесты зелёные, покрытие ≥ порог; прогнан `/understand-diff` (ripple-эффект изменений); проверяющий выдал вердикт по `docs/reviews/review-format.md`, сверившись с `CODE-REVIEW.md`.
 5. **Релиз** — pre-push checklist пройден, CI зелёный, есть runbook.
 6. **Бой** — после выката: health + tail логов 2 мин + smoke; инцидент → `docs/audits/` + `docs/analytics/incidents.md`.
 
